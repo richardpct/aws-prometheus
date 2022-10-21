@@ -1,5 +1,5 @@
 module "network" {
-  source = "../../../modules/network"
+  source = "../modules/network"
 
   region           = "eu-west-3"
   env              = "dev"

@@ -1,5 +1,5 @@
-module "webserver" {
-  source = "../../../modules/webserver"
+module "prometheus" {
+  source = "../modules/prometheus"
 
   region                      = "eu-west-3"
   env                         = "dev"
