@@ -7,3 +7,13 @@ data "terraform_remote_state" "network" {
     region = var.region
   }
 }
+
+data "terraform_remote_state" "grafana" {
+  backend = "s3"
+
+  config = {
+    bucket = var.grafana_remote_state_bucket
+    key    = var.grafana_remote_state_key
+    region = var.region
+  }
+}

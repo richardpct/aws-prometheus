@@ -5,3 +5,7 @@ variable "bucket" {
 variable "dev_network_key" {
   description = "terraform state for dev environment"
 }
+
+variable "dev_grafana_key" {
+  description = "terraform state for dev environment"
+}
