@@ -1,5 +1,5 @@
-module "webserver" {
-  source = "../modules/webserver"
+module "grafana" {
+  source = "../modules/grafana"
 
   region                      = "eu-west-3"
   env                         = "dev"

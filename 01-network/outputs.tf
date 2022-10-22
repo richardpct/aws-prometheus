@@ -10,8 +10,8 @@ output "ssh_key" {
   value = module.network.ssh_key
 }
 
-output "webserver_sg_id" {
-  value = module.network.webserver_sg_id
+output "grafana_sg_id" {
+  value = module.network.grafana_sg_id
 }
 
 output "prometheus_sg_id" {

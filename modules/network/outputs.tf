@@ -10,8 +10,8 @@ output "ssh_key" {
   value = aws_key_pair.deployer.key_name
 }
 
-output "webserver_sg_id" {
-  value = aws_security_group.webserver.id
+output "grafana_sg_id" {
+  value = aws_security_group.grafana.id
 }
 
 output "prometheus_sg_id" {
