@@ -14,22 +14,6 @@ variable "network_remote_state_key" {
   description = "network key"
 }
 
-variable "grafana_remote_state_bucket" {
-  description = "bucket"
-}
-
-variable "grafana_remote_state_key" {
-  description = "network key"
-}
-
-variable "alertmanager_remote_state_bucket" {
-  description = "bucket"
-}
-
-variable "alertmanager_remote_state_key" {
-  description = "network key"
-}
-
 variable "image_id" {
   description = "image id"
 }

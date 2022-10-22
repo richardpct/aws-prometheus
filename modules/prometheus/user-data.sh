@@ -22,7 +22,7 @@ alerting:
   alertmanagers:
     - static_configs:
         - targets:
-          # - alertmanager:9093
+          - ${alertmanager_private_ip}:9093
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
@@ -46,4 +46,13 @@ scrape_configs:
     static_configs:
       - targets:
         - ${grafana_private_ip}:9100
+
+  - job_name: alertmanager
+    static_configs:
+      - targets:
+        - ${alertmanager_private_ip}:9100
 EOF
+
+node_exporter-1.4.0.linux-amd64/node_exporter &
+cd prometheus-2.39.1.linux-amd64
+./prometheus &

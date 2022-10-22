@@ -14,6 +14,10 @@ output "grafana_sg_id" {
   value = aws_security_group.grafana.id
 }
 
+output "alertmanager_sg_id" {
+  value = aws_security_group.alertmanager.id
+}
+
 output "prometheus_sg_id" {
   value = aws_security_group.prometheus.id
 }

@@ -14,6 +14,10 @@ output "grafana_sg_id" {
   value = module.network.grafana_sg_id
 }
 
+output "alertmanager_sg_id" {
+  value = module.network.alertmanager_sg_id
+}
+
 output "prometheus_sg_id" {
   value = module.network.prometheus_sg_id
 }

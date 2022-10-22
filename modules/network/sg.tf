@@ -34,6 +34,42 @@ resource "aws_security_group_rule" "grafana_outbound_all" {
   security_group_id = aws_security_group.grafana.id
 }
 
+resource "aws_security_group" "alertmanager" {
+  name   = "sg_alertmanager-${var.env}"
+  vpc_id = aws_vpc.my_vpc.id
+
+  tags = {
+    Name = "alertmanager_sg-${var.env}"
+  }
+}
+
+resource "aws_security_group_rule" "alertmanager_inbound_ssh" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = [var.cidr_allowed_ssh]
+  security_group_id = aws_security_group.alertmanager.id
+}
+
+resource "aws_security_group_rule" "alertmanager_inbound_http" {
+  type              = "ingress"
+  from_port         = 9093
+  to_port           = 9093
+  protocol          = "tcp"
+  cidr_blocks       = [var.cidr_allowed_ssh]
+  security_group_id = aws_security_group.alertmanager.id
+}
+
+resource "aws_security_group_rule" "alertmanager_outbound_all" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.alertmanager.id
+}
+
 resource "aws_security_group" "prometheus" {
   name   = "sg_prometheus-${var.env}"
   vpc_id = aws_vpc.my_vpc.id
@@ -104,4 +140,40 @@ resource "aws_security_group_rule" "grafana_outbound_prometheus" {
   protocol                 = "tcp"
   source_security_group_id = aws_security_group.prometheus.id
   security_group_id        = aws_security_group.grafana.id
+}
+
+resource "aws_security_group_rule" "alertmanager_inbound_prometheus" {
+  type                     = "ingress"
+  from_port                = 9100
+  to_port                  = 9100
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.prometheus.id
+  security_group_id        = aws_security_group.alertmanager.id
+}
+
+resource "aws_security_group_rule" "prometheus_outbound_alertmanager" {
+  type                     = "egress"
+  from_port                = 9100
+  to_port                  = 9100
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.alertmanager.id
+  security_group_id        = aws_security_group.prometheus.id
+}
+
+resource "aws_security_group_rule" "alertmanager_inbound_prometheus2" {
+  type                     = "ingress"
+  from_port                = 9093
+  to_port                  = 9093
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.prometheus.id
+  security_group_id        = aws_security_group.alertmanager.id
+}
+
+resource "aws_security_group_rule" "prometheus_outbound_alertmanager2" {
+  type                     = "egress"
+  from_port                = 9093
+  to_port                  = 9093
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.alertmanager.id
+  security_group_id        = aws_security_group.prometheus.id
 }
